@@ -1,41 +1,20 @@
 #cloud-config
-ssh_authorized_keys:
-  - ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEApMnkrW756S33X2hVkwYwCqarcQ+Z3Wh6nIRcNHtKAox7YZ6j6Y79u6BolGQu/DuD6BtMnvAMykXdRgve57cKvui7wacjSvl7N5CVk5EpeH18TEbu0498K4tJLyE4Co0V/FkGCoJa6Hu/na01Vw1ki4CVWSv/OiVhVm8ZsjQS/DCMVWb58l6QZqlDQj8ZNKPJj4PGv/cOdfuwbzw+//WHZUk5keLGATMlAzeIQgBJsJVw06INj3PSbSm+boGJrv4cxM+UBoAaBmU9tFi+XJCos55M2qLX/EIm+CtHx+t3eXmAufG5AznDdoYG/+I5CXZ9qa2g+77nAy1z6A+LSu3cjQ== RancherOS
-write_files:
-  - path: /var/lib/rancher/conf/cloud-config.yml
-    permissions: "0644"
-    owner: root
-    content: |
-      #cloud-config
-      ssh_authorized_keys:
-        - ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEApMnkrW756S33X2hVkwYwCqarcQ+Z3Wh6nIRcNHtKAox7YZ6j6Y79u6BolGQu/DuD6BtMnvAMykXdRgve57cKvui7wacjSvl7N5CVk5EpeH18TEbu0498K4tJLyE4Co0V/FkGCoJa6Hu/na01Vw1ki4CVWSv/OiVhVm8ZsjQS/DCMVWb58l6QZqlDQj8ZNKPJj4PGv/cOdfuwbzw+//WHZUk5keLGATMlAzeIQgBJsJVw06INj3PSbSm+boGJrv4cxM+UBoAaBmU9tFi+XJCos55M2qLX/EIm+CtHx+t3eXmAufG5AznDdoYG/+I5CXZ9qa2g+77nAy1z6A+LSu3cjQ== RancherOS
-      rancher:
-        state:
-          dev: LABEL=RANCHER_STATE
-        services_include:
-          open-vm-tools: true
-        network:
-          interfaces:
-            eth0:
-              address: 192.168.199.100/24
-              gateway: 192.168.199.254
-              mtu: 1500
-              dhcp: false
-            dns:
-              nameservers:
-                - 192.168.199.254
+
+hostname: rancher-vmware-01
+
 rancher:
-  state:
-    dev: LABEL=RANCHER_STATE
   services_include:
     open-vm-tools: true
   network:
     interfaces:
+      eth*:
+       dhcp: false
       eth0:
-        address: 192.168.199.100/24
-        gateway: 192.168.199.254
-        mtu: 1500
-        dhcp: false
+       address: 192.168.199.100/24
+       gateway: 192.168.199.254
     dns:
-      nameservers:
-        - 192.168.199.254
+     nameservers:
+      - 192.168.199.254
+
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEApMnkrW756S33X2hVkwYwCqarcQ+Z3Wh6nIRcNHtKAox7YZ6j6Y79u6BolGQu/DuD6BtMnvAMykXdRgve57cKvui7wacjSvl7N5CVk5EpeH18TEbu0498K4tJLyE4Co0V/FkGCoJa6Hu/na01Vw1ki4CVWSv/OiVhVm8ZsjQS/DCMVWb58l6QZqlDQj8ZNKPJj4PGv/cOdfuwbzw+//WHZUk5keLGATMlAzeIQgBJsJVw06INj3PSbSm+boGJrv4cxM+UBoAaBmU9tFi+XJCos55M2qLX/EIm+CtHx+t3eXmAufG5AznDdoYG/+I5CXZ9qa2g+77nAy1z6A+LSu3cjQ== RancherOS
